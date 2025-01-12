@@ -55,7 +55,7 @@ type SentryConfig struct {
 // AdaptorFirebaseAuthAPIConfig represents the configuration of the adaptor-firebase-auth API
 type AdaptorFirebaseAuthAPIConfig struct {
 	BaseURL                  string        `env:"ADAPTOR_FIREBASE_AUTH_API_BASE_URL,notEmpty"`
-	Path                     string        `env:"ADAPTOR_FIREBASE_AUTH_API_PATH,notEmpty"`
+	SignupPath               string        `env:"ADAPTOR_FIREBASE_AUTH_API_SIGNUP_PATH,notEmpty"`
 	MaxConns                 int           `env:"ADAPTOR_FIREBASE_AUTH_API_MAX_CONNS,notEmpty"`
 	MaxRetry                 int           `env:"ADAPTOR_FIREBASE_AUTH_API_MAX_RETRY,notEmpty"`
 	Timeout                  time.Duration `env:"ADAPTOR_FIREBASE_AUTH_API_TIMEOUT,notEmpty"`

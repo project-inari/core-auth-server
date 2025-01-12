@@ -47,8 +47,8 @@ func New(c *config.Config) {
 
 	// Repository initialization
 	adaptorFirebaseAuthRepo := repository.NewAdaptorFirebaseAuthRepository(repository.AdaptorFirebaseAuthRepositoryConfig{
-		BaseURL: c.AdaptorFirebaseAuthAPIConfig.BaseURL,
-		Path:    c.AdaptorFirebaseAuthAPIConfig.Path,
+		BaseURL:    c.AdaptorFirebaseAuthAPIConfig.BaseURL,
+		SignupPath: c.AdaptorFirebaseAuthAPIConfig.SignupPath,
 	}, repository.AdaptorFirebaseAuthRepositoryDependencies{
 		Client: httpClientAdaptorFirebaseAuth,
 	})

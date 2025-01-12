@@ -2,10 +2,10 @@ package dto
 
 // SignUpReq represents the request to the signup endpoint
 type SignUpReq struct {
-	Username string `json:"username"`
-	Email    string `json:"email"`
-	Password string `json:"password"`
-	PhoneNo  string `json:"phoneNo"`
+	Username string `json:"username" validate:"required"`
+	Email    string `json:"email" validate:"required,email"`
+	Password string `json:"password" validate:"required"`
+	PhoneNo  string `json:"phoneNo" validate:"required"`
 }
 
 // SignUpReqHeader represents the header for the SignUpReq
