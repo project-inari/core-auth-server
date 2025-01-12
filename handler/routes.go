@@ -10,5 +10,5 @@ func (h *httpHandler) initRoutes(e *echo.Echo) {
 	e.GET("/swagger/*", echoSwagger.WrapHandler)
 
 	v1 := e.Group("/v1")
-	v1.GET("/test", h.DoWiremock)
+	_ = v1
 }

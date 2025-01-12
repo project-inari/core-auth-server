@@ -3,20 +3,12 @@ package repository
 
 import (
 	"context"
-	"time"
 
 	"github.com/project-inari/core-auth-server/dto"
 	"github.com/project-inari/core-auth-server/pkg/httpclient"
-	"github.com/redis/go-redis/v9"
 )
 
-// WiremockAPIRepository represents the repository layer functions of wiremock API repository
-type WiremockAPIRepository interface {
-	GetTest(ctx context.Context, h dto.WiremockGetTestHeader) (*httpclient.Response[dto.WiremockGetTestResponse], error)
-}
-
-// CacheRepository represents the repository layer functions of cache repository
-type CacheRepository interface {
-	Get(ctx context.Context, key string) *redis.StringCmd
-	Set(ctx context.Context, key string, value interface{}, ttl time.Duration) *redis.StatusCmd
+// AdaptorFirebaseAuthRepository represents the repository API for the adaptor-firebase-auth service
+type AdaptorFirebaseAuthRepository interface {
+	CallSignUp(ctx context.Context, req dto.AdaptorFirebaseAuthSignUpReq, h dto.AdaptorFirebaseAuthSignUpReqHeader) (*httpclient.Response[dto.AdaptorFirebaseAuthSignUpRes], error)
 }

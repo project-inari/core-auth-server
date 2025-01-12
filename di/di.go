@@ -37,25 +37,25 @@ func New(c *config.Config) {
 	setupServer(ctx, e, c)
 
 	// HTTP Client initialization
-	httpClientWiremock := httpclient.NewHTTPClient(httpclient.Options{
-		MaxConns:                 c.WiremockAPIConfig.MaxConns,
-		MaxRetry:                 c.WiremockAPIConfig.MaxRetry,
-		Timeout:                  c.WiremockAPIConfig.Timeout,
-		InsecureSkipVerify:       c.WiremockAPIConfig.InsecureSkipVerify,
-		MaxTransactionsPerSecond: c.WiremockAPIConfig.MaxTransactionsPerSecond,
+	httpClientAdaptorFirebaseAuth := httpclient.NewHTTPClient(httpclient.Options{
+		MaxConns:                 c.AdaptorFirebaseAuthAPIConfig.MaxConns,
+		MaxRetry:                 c.AdaptorFirebaseAuthAPIConfig.MaxRetry,
+		Timeout:                  c.AdaptorFirebaseAuthAPIConfig.Timeout,
+		InsecureSkipVerify:       c.AdaptorFirebaseAuthAPIConfig.InsecureSkipVerify,
+		MaxTransactionsPerSecond: c.AdaptorFirebaseAuthAPIConfig.MaxTransactionsPerSecond,
 	})
 
 	// Repository initialization
-	wiremockAPIRepo := repository.NewWiremockAPIRepository(repository.WiremockAPIRepositoryConfig{
-		BaseURL: c.WiremockAPIConfig.BaseURL,
-		Path:    c.WiremockAPIConfig.Path,
-	}, repository.WiremockAPIRepositoryDependencies{
-		Client: httpClientWiremock,
+	adaptorFirebaseAuthRepo := repository.NewAdaptorFirebaseAuthRepository(repository.AdaptorFirebaseAuthRepositoryConfig{
+		BaseURL: c.AdaptorFirebaseAuthAPIConfig.BaseURL,
+		Path:    c.AdaptorFirebaseAuthAPIConfig.Path,
+	}, repository.AdaptorFirebaseAuthRepositoryDependencies{
+		Client: httpClientAdaptorFirebaseAuth,
 	})
 
 	// Service initialization
 	service := service.New(service.Dependencies{
-		WiremockAPIRepository: wiremockAPIRepo,
+		AdaptorFirebaseAuthRepository: adaptorFirebaseAuthRepo,
 	})
 
 	// Handler initialization

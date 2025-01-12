@@ -35,9 +35,9 @@ func New(e string) *Config {
 
 // Config represents the configuration of the server
 type Config struct {
-	AppConfig         AppConfig
-	SentryConfig      SentryConfig
-	WiremockAPIConfig WiremockAPIConfig
+	AppConfig                    AppConfig
+	SentryConfig                 SentryConfig
+	AdaptorFirebaseAuthAPIConfig AdaptorFirebaseAuthAPIConfig
 }
 
 // AppConfig represents the configuration of the application
@@ -52,13 +52,13 @@ type SentryConfig struct {
 	SentryDSN string `env:"SENTRY_DSN"`
 }
 
-// WiremockAPIConfig represents the configuration of the Wiremock API
-type WiremockAPIConfig struct {
-	BaseURL                  string        `env:"WIREMOCK_API_BASE_URL,notEmpty"`
-	Path                     string        `env:"WIREMOCK_API_PATH,notEmpty"`
-	MaxConns                 int           `env:"WIREMOCK_API_MAX_CONNS,notEmpty"`
-	MaxRetry                 int           `env:"WIREMOCK_API_MAX_RETRY,notEmpty"`
-	Timeout                  time.Duration `env:"WIREMOCK_API_TIMEOUT,notEmpty"`
-	InsecureSkipVerify       bool          `env:"WIREMOCK_API_INSECURE_SKIP_VERIFY,notEmpty"`
-	MaxTransactionsPerSecond int           `env:"WIREMOCK_API_MAX_TRANSACTIONS_PER_SECOND"`
+// AdaptorFirebaseAuthAPIConfig represents the configuration of the adaptor-firebase-auth API
+type AdaptorFirebaseAuthAPIConfig struct {
+	BaseURL                  string        `env:"ADAPTOR_FIREBASE_AUTH_API_BASE_URL,notEmpty"`
+	Path                     string        `env:"ADAPTOR_FIREBASE_AUTH_API_PATH,notEmpty"`
+	MaxConns                 int           `env:"ADAPTOR_FIREBASE_AUTH_API_MAX_CONNS,notEmpty"`
+	MaxRetry                 int           `env:"ADAPTOR_FIREBASE_AUTH_API_MAX_RETRY,notEmpty"`
+	Timeout                  time.Duration `env:"ADAPTOR_FIREBASE_AUTH_API_TIMEOUT,notEmpty"`
+	InsecureSkipVerify       bool          `env:"ADAPTOR_FIREBASE_AUTH_API_INSECURE_SKIP_VERIFY,notEmpty"`
+	MaxTransactionsPerSecond int           `env:"ADAPTOR_FIREBASE_AUTH_API_MAX_TRANSACTIONS_PER_SECOND"`
 }

@@ -2,29 +2,28 @@
 package service
 
 import (
-	"context"
+	// "context"
 
-	"github.com/project-inari/core-auth-server/dto"
+	// "github.com/project-inari/core-auth-server/dto"
 	"github.com/project-inari/core-auth-server/repository"
 )
 
 // Port represents the service layer functions
 type Port interface {
-	DoWiremock(ctx context.Context) (*dto.WiremockGetTestResponse, error)
 }
 
 type service struct {
-	wiremockAPIRepository repository.WiremockAPIRepository
+	adaptorFirebaseAuthRepository repository.AdaptorFirebaseAuthRepository
 }
 
 // Dependencies represents the dependencies for the service
 type Dependencies struct {
-	WiremockAPIRepository repository.WiremockAPIRepository
+	AdaptorFirebaseAuthRepository repository.AdaptorFirebaseAuthRepository
 }
 
 // New creates a new service
 func New(d Dependencies) Port {
 	return &service{
-		wiremockAPIRepository: d.WiremockAPIRepository,
+		adaptorFirebaseAuthRepository: d.AdaptorFirebaseAuthRepository,
 	}
 }
