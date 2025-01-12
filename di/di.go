@@ -43,6 +43,7 @@ func New(c *config.Config) {
 		Timeout:                  c.AdaptorFirebaseAuthAPIConfig.Timeout,
 		InsecureSkipVerify:       c.AdaptorFirebaseAuthAPIConfig.InsecureSkipVerify,
 		MaxTransactionsPerSecond: c.AdaptorFirebaseAuthAPIConfig.MaxTransactionsPerSecond,
+		DisableLogTrace:          c.AdaptorFirebaseAuthAPIConfig.DisableLogTrace,
 	})
 
 	// Repository initialization

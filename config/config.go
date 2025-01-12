@@ -61,4 +61,5 @@ type AdaptorFirebaseAuthAPIConfig struct {
 	Timeout                  time.Duration `env:"ADAPTOR_FIREBASE_AUTH_API_TIMEOUT,notEmpty"`
 	InsecureSkipVerify       bool          `env:"ADAPTOR_FIREBASE_AUTH_API_INSECURE_SKIP_VERIFY,notEmpty"`
 	MaxTransactionsPerSecond int           `env:"ADAPTOR_FIREBASE_AUTH_API_MAX_TRANSACTIONS_PER_SECOND"`
+	DisableLogTrace          bool          `env:"ADAPTOR_FIREBASE_AUTH_API_DISABLE_LOG_TRACE"`
 }

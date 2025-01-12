@@ -21,6 +21,7 @@ type Options struct {
 	Timeout                  time.Duration
 	InsecureSkipVerify       bool
 	MaxTransactionsPerSecond int
+	DisableLogTrace          bool
 }
 
 // NewHTTPClient creates a new HTTP client with the given options
@@ -44,7 +45,10 @@ func NewHTTPClient(opts Options) *http.Client {
 		t.TLSClientConfig = &tls.Config{MinVersion: tls.VersionTLS12}
 	}
 	t.TLSClientConfig.InsecureSkipVerify = opts.InsecureSkipVerify
-	httpClient.HTTPClient.Transport = t
+	httpClient.HTTPClient.Transport = &CustomTransport{
+		transport:       t,
+		disableLogTrace: opts.DisableLogTrace,
+	}
 
 	if opts.MaxTransactionsPerSecond != 0 {
 		limiter := rate.NewLimiter(rate.Limit(opts.MaxTransactionsPerSecond), 1)
