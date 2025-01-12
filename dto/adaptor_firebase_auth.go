@@ -1,5 +1,9 @@
 package dto
 
+const (
+	adaptorFirebaseAuthContentType = "application/json"
+)
+
 // AdaptorFirebaseAuthSignUpReq represents the request to the adaptor-firebase-auth signup endpoint
 type AdaptorFirebaseAuthSignUpReq struct {
 	Username string `json:"username"`
@@ -18,7 +22,11 @@ type AdaptorFirebaseAuthSignUpReqHeader struct {
 func (h AdaptorFirebaseAuthSignUpReqHeader) ToMap() map[string]string {
 	m := make(map[string]string)
 	m["accept-locale"] = h.AcceptLocale
-	m["Content-Type"] = h.ContentType
+	if h.ContentType == "" {
+		m["content-type"] = adaptorFirebaseAuthContentType
+	} else {
+		m["content-type"] = h.ContentType
+	}
 	return m
 }
 

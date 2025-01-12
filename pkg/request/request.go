@@ -30,12 +30,12 @@ func ContextWrapper(ctx echo.Context) contextWrapperService {
 // Bind binds the data to the request context
 func (c *contextWrapper) Bind(data any) error {
 	if err := c.Context.Bind(data); err != nil {
-		slog.Error("error - [request.Bind] bind data failed", slog.Any("error", err))
+		slog.Warn("[request.Bind] bind data failed", slog.Any("error", err))
 		return err
 	}
 
 	if err := c.validator.Struct(data); err != nil {
-		slog.Error("error - [request.Bind] validate data failed", slog.Any("error", err))
+		slog.Warn("[request.Bind] validate data failed", slog.Any("error", err))
 		return err
 	}
 
