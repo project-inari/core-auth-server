@@ -2,6 +2,8 @@ package service
 
 import (
 	"context"
+	"fmt"
+	"net/http"
 
 	"github.com/project-inari/core-auth-server/dto"
 )
@@ -28,6 +30,9 @@ func (s *service) SignUp(ctx context.Context, req dto.SignUpReq, h dto.SignUpReq
 	res, err := s.adaptorFirebaseAuthRepository.CallSignUp(ctx, adaptorReq, adaptorHeader)
 	if err != nil {
 		return nil, err
+	}
+	if res.HTTPStatusCode != http.StatusOK {
+		return nil, fmt.Errorf("error - [service.SignUp] - adaptor-firebase-auth http status code returns %v", res.HTTPStatusCode)
 	}
 
 	return &dto.SignUpRes{
