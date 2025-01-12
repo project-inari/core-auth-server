@@ -45,46 +45,7 @@ func New(c *config.Config) {
 		MaxTransactionsPerSecond: c.WiremockAPIConfig.MaxTransactionsPerSecond,
 	})
 
-	// PostgreSQL initialization
-	postgresDB, err := newPostgreSQL(postgreSQLOptions{
-		host:         c.PostgreSQLConfig.Host,
-		username:     c.PostgreSQLConfig.Username,
-		password:     c.PostgreSQLConfig.Password,
-		database:     c.PostgreSQLConfig.Database,
-		timeout:      c.PostgreSQLConfig.Timeout,
-		maxIdleConns: c.PostgreSQLConfig.MaxIdleConns,
-		maxOpenConns: c.PostgreSQLConfig.MaxOpenConns,
-		maxLifetime:  c.PostgreSQLConfig.MaxLifetime,
-	})
-	if err != nil {
-		log.Panicf("error - [main.New] unable to connect to PostgreSQL: %v", err)
-	}
-	defer func() {
-		if err := postgresDB.client.Close(); err != nil {
-			slog.Error("error - [main.New] unable to close PostgreSQL connection", slog.Any("error", err))
-		}
-	}()
-
-	// Redis initialization
-	redisClient, err := newRedis(redisOptions{
-		host:     c.RedisConfig.Host,
-		password: c.RedisConfig.Password,
-		timeout:  c.RedisConfig.Timeout,
-		maxRetry: c.RedisConfig.MaxRetry,
-		poolSize: c.RedisConfig.PoolSize,
-	})
-	if err != nil {
-		log.Panicf("error - [main.New] unable to connect to Redis: %v", err)
-	}
-	defer func() {
-		if err := redisClient.client.Close(); err != nil {
-			slog.Error("error - [main.New] unable to close Redis connection", slog.Any("error", err))
-		}
-	}()
-
 	// Repository initialization
-	exampleRepo := repository.NewExampleRepository(repository.ExampleRepositoryConfig{})
-
 	wiremockAPIRepo := repository.NewWiremockAPIRepository(repository.WiremockAPIRepositoryConfig{
 		BaseURL: c.WiremockAPIConfig.BaseURL,
 		Path:    c.WiremockAPIConfig.Path,
@@ -92,22 +53,9 @@ func New(c *config.Config) {
 		Client: httpClientWiremock,
 	})
 
-	databaseRepo := repository.NewDatabaseRepository(repository.DatabaseRepositoryConfig{
-		Database: c.PostgreSQLConfig.Database,
-	}, repository.DatabaseRepositoryDependencies{
-		Client: postgresDB.client,
-	})
-
-	cacheRepo := repository.NewCacheRepository(repository.CacheRepositoryConfig{}, repository.CacheRepositoryDependencies{
-		Client: redisClient.client,
-	})
-
 	// Service initialization
 	service := service.New(service.Dependencies{
-		ExampleRepository:     exampleRepo,
 		WiremockAPIRepository: wiremockAPIRepo,
-		DatabaseRepository:    databaseRepo,
-		CacheRepository:       cacheRepo,
 	})
 
 	// Handler initialization

@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/hashicorp/go-retryablehttp"
+	"golang.org/x/exp/slog"
 	"golang.org/x/time/rate"
 )
 
@@ -31,7 +32,11 @@ func NewHTTPClient(opts Options) *http.Client {
 	httpClient.RetryWaitMax = 5 * time.Second
 	httpClient.HTTPClient.Timeout = opts.Timeout
 
-	t := http.DefaultTransport.(*http.Transport).Clone()
+	t, ok := http.DefaultTransport.(*http.Transport)
+	if !ok {
+		slog.Error("error - [pkg.httpclient] DefaultTransport is not of type *http.Transport")
+	}
+	t = t.Clone()
 	t.MaxIdleConns = opts.MaxConns
 	t.MaxConnsPerHost = opts.MaxConns
 	t.MaxIdleConnsPerHost = opts.MaxConns
