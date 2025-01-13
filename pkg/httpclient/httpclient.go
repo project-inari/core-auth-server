@@ -6,11 +6,11 @@ import (
 	"context"
 	"crypto/tls"
 	"encoding/json"
+	"log/slog"
 	"net/http"
 	"time"
 
 	"github.com/hashicorp/go-retryablehttp"
-	"golang.org/x/exp/slog"
 	"golang.org/x/time/rate"
 )
 
