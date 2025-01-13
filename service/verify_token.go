@@ -2,6 +2,8 @@ package service
 
 import (
 	"context"
+	"fmt"
+	"net/http"
 	"strings"
 
 	"github.com/project-inari/core-auth-server/dto"
@@ -18,6 +20,9 @@ func (s *service) VerifyToken(ctx context.Context, req *authPb.VerifyTokenReq) (
 	}, dto.AdaptorFirebaseAuthVerifyTokenReqHeader{})
 	if err != nil {
 		return nil, err
+	}
+	if res.HTTPStatusCode != http.StatusOK {
+		return nil, fmt.Errorf("error - [service.VerifyToken] - adaptor-firebase-auth http status code returns %v", res.HTTPStatusCode)
 	}
 
 	return &authPb.VerifyTokenRes{
