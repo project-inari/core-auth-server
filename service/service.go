@@ -5,12 +5,14 @@ import (
 	"context"
 
 	"github.com/project-inari/core-auth-server/dto"
+	"github.com/project-inari/core-auth-server/protobuf/authPb"
 	"github.com/project-inari/core-auth-server/repository"
 )
 
 // Port represents the service layer functions
 type Port interface {
 	SignUp(ctx context.Context, req dto.SignUpReq, h dto.SignUpReqHeader) (*dto.SignUpRes, error)
+	VerifyToken(ctx context.Context, req *authPb.VerifyTokenReq) (*authPb.VerifyTokenRes, error)
 }
 
 type service struct {

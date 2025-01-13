@@ -34,3 +34,31 @@ func (h AdaptorFirebaseAuthSignUpReqHeader) ToMap() map[string]string {
 type AdaptorFirebaseAuthSignUpRes struct {
 	Token string `json:"token"`
 }
+
+// AdaptorFirebaseAuthVerifyTokenReq represents the request to the adaptor-firebase-auth verify token endpoint
+type AdaptorFirebaseAuthVerifyTokenReq struct {
+	Token string `json:"token"`
+}
+
+// AdaptorFirebaseAuthVerifyTokenReqHeader represents the header for the adaptorFirebaseAuthVerifyTokenReq
+type AdaptorFirebaseAuthVerifyTokenReqHeader struct {
+	ContentType string
+}
+
+// ToMap converts the header to a map
+func (h AdaptorFirebaseAuthVerifyTokenReqHeader) ToMap() map[string]string {
+	m := make(map[string]string)
+	if h.ContentType == "" {
+		m["content-type"] = adaptorFirebaseAuthContentType
+	} else {
+		m["content-type"] = h.ContentType
+	}
+	return m
+}
+
+// AdaptorFirebaseAuthVerifyTokenRes represents the response from the adaptor-firebase-auth verify token endpoint
+type AdaptorFirebaseAuthVerifyTokenRes struct {
+	Username string `json:"username"`
+	UID      string `json:"uid"`
+	Success  bool   `json:"success"`
+}

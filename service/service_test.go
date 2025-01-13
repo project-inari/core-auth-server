@@ -11,12 +11,17 @@ import (
 )
 
 type mockAdaptorFirebaseAuthRepository struct {
-	res *httpclient.Response[dto.AdaptorFirebaseAuthSignUpRes]
-	err error
+	signupRes      *httpclient.Response[dto.AdaptorFirebaseAuthSignUpRes]
+	verifyTokenRes *httpclient.Response[dto.AdaptorFirebaseAuthVerifyTokenRes]
+	err            error
 }
 
 func (m *mockAdaptorFirebaseAuthRepository) CallSignUp(_ context.Context, _ dto.AdaptorFirebaseAuthSignUpReq, _ dto.AdaptorFirebaseAuthSignUpReqHeader) (*httpclient.Response[dto.AdaptorFirebaseAuthSignUpRes], error) {
-	return m.res, m.err
+	return m.signupRes, m.err
+}
+
+func (m *mockAdaptorFirebaseAuthRepository) CallVerifyToken(_ context.Context, _ dto.AdaptorFirebaseAuthVerifyTokenReq, _ dto.AdaptorFirebaseAuthVerifyTokenReqHeader) (*httpclient.Response[dto.AdaptorFirebaseAuthVerifyTokenRes], error) {
+	return m.verifyTokenRes, m.err
 }
 
 const (
@@ -42,8 +47,8 @@ func TestSignUp(t *testing.T) {
 		}
 
 		adaptorFirebaseAuthRepository := &mockAdaptorFirebaseAuthRepository{
-			res: adaptorFirebaseAuthRes,
-			err: nil,
+			signupRes: adaptorFirebaseAuthRes,
+			err:       nil,
 		}
 
 		svc := &service{
@@ -73,8 +78,8 @@ func TestSignUp(t *testing.T) {
 		}
 
 		adaptorFirebaseAuthRepository := &mockAdaptorFirebaseAuthRepository{
-			res: adaptorFirebaseAuthRes,
-			err: nil,
+			signupRes: adaptorFirebaseAuthRes,
+			err:       nil,
 		}
 
 		svc := &service{
@@ -98,8 +103,8 @@ func TestSignUp(t *testing.T) {
 
 	t.Run("error - when httpclient error", func(t *testing.T) {
 		adaptorFirebaseAuthRepository := &mockAdaptorFirebaseAuthRepository{
-			res: nil,
-			err: errors.New("error"),
+			signupRes: nil,
+			err:       errors.New("error"),
 		}
 
 		svc := &service{

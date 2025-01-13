@@ -8,6 +8,7 @@ prepare:
 	@command -v pre-commit >/dev/null 2>&1 || brew install pre-commit
 	@command -v jq >/dev/null 2>&1 || brew install jq
 	@command -v teleport >/dev/null 2>&1 || { go install github.com/project-inari/teleport@latest; }
+	@command -v grpcurl >/dev/null 2>&1 || brew install grpcurl
 	go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 	go install golang.org/x/tools/cmd/goimports@latest
 
