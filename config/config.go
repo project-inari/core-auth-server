@@ -47,6 +47,7 @@ type Config struct {
 type AppConfig struct {
 	Name     string `env:"APP_NAME,notEmpty"`
 	Port     string `env:"APP_PORT,notEmpty"`
+	GRPCPort string `env:"APP_GRPC_PORT,notEmpty"`
 	EnvStage string `env:"APP_ENV_STAGE,notEmpty"`
 }
 
@@ -65,6 +66,7 @@ type SentryConfig struct {
 type AdaptorFirebaseAuthAPIConfig struct {
 	BaseURL                  string        `env:"ADAPTOR_FIREBASE_AUTH_API_BASE_URL,notEmpty"`
 	SignupPath               string        `env:"ADAPTOR_FIREBASE_AUTH_API_SIGNUP_PATH,notEmpty"`
+	VerifyTokenPath          string        `env:"ADAPTOR_FIREBASE_AUTH_API_VERIFY_TOKEN_PATH,notEmpty"`
 	MaxConns                 int           `env:"ADAPTOR_FIREBASE_AUTH_API_MAX_CONNS,notEmpty"`
 	MaxRetry                 int           `env:"ADAPTOR_FIREBASE_AUTH_API_MAX_RETRY,notEmpty"`
 	Timeout                  time.Duration `env:"ADAPTOR_FIREBASE_AUTH_API_TIMEOUT,notEmpty"`

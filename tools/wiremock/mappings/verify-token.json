@@ -1,0 +1,13 @@
+{
+    "request": {
+        "urlPathPattern": "/v1/verify-token",
+        "method": "POST"
+    },
+    "response": {
+        "status": 200,
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "bodyFileName": "verify-token.json"
+    }
+}
