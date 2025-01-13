@@ -47,6 +47,7 @@ type Config struct {
 type AppConfig struct {
 	Name     string `env:"APP_NAME,notEmpty"`
 	Port     string `env:"APP_PORT,notEmpty"`
+	GRPCPort string `env:"APP_GRPC_PORT,notEmpty"`
 	EnvStage string `env:"APP_ENV_STAGE,notEmpty"`
 }
 

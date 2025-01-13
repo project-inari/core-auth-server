@@ -105,3 +105,10 @@ test: tidy
 test-cover:
 	go test -v -race -buildvcs -coverprofile=./coverage.out ./...
 	go tool cover -html=./coverage.out
+
+## gen.auth.proto: generate auth protobuf
+.PHONY: gen.auth.proto
+gen.auth.proto:
+	protoc --go_out=. --go_opt=paths=source_relative \
+		--go-grpc_out=. --go-grpc_opt=paths=source_relative \
+		./protobuf/authPb/auth.proto

@@ -13,6 +13,7 @@ import (
 	"github.com/project-inari/core-auth-server/config"
 	"github.com/project-inari/core-auth-server/handler"
 	"github.com/project-inari/core-auth-server/pkg/httpclient"
+	"github.com/project-inari/core-auth-server/protobuf/authPb"
 	"github.com/project-inari/core-auth-server/repository"
 	"github.com/project-inari/core-auth-server/service"
 )
@@ -35,6 +36,9 @@ func New(c *config.Config) {
 	// Echo server initialization
 	e := echo.New()
 	setupServer(ctx, e, c)
+
+	// GRPC Server initialization
+	grpcServer, grpcListener := setupGRPCServer(c)
 
 	// HTTP Client initialization
 	httpClientAdaptorFirebaseAuth := httpclient.NewHTTPClient(httpclient.Options{
@@ -60,9 +64,17 @@ func New(c *config.Config) {
 	})
 
 	// Handler initialization
-	handler.New(e, handler.Dependencies{
+	grpcHandler := handler.New(e, handler.Dependencies{
 		Service: service,
 	})
+
+	go func() {
+		authPb.RegisterAuthGrpcServiceServer(grpcServer, grpcHandler)
+		slog.Info("Starting gRPC server...", slog.Any("port", c.AppConfig.GRPCPort))
+		if err := grpcServer.Serve(grpcListener); err != nil {
+			log.Panicf("error - [handler.New]: unable to start gRPC server: %v", err)
+		}
+	}()
 
 	// HTTP Listening
 	if err := e.Start(":" + c.AppConfig.Port); err != nil && err != http.ErrServerClosed {
