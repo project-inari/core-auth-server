@@ -9,10 +9,9 @@ import (
 )
 
 // DeleteFirebaseUser deletes a user in Firebase Auth
-func (s *service) DeleteFirebaseUser(ctx context.Context, req *dto.DeleteFirebaseUserReq) (*dto.DeleteFirebaseUserRes, error) {
-	res, err := s.adaptorFirebaseAuthRepository.CallDeleteUser(ctx, dto.AdaptorFirebaseAuthDeleteUserReq{
-		UID: req.UID,
-	}, dto.AdaptorFirebaseAuthDeleteUserReqHeader{})
+func (s *service) DeleteFirebaseUser(ctx context.Context, req dto.DeleteFirebaseUserReq) (*dto.DeleteFirebaseUserRes, error) {
+	adaptorReq := dto.AdaptorFirebaseAuthDeleteUserReq(req)
+	res, err := s.adaptorFirebaseAuthRepository.CallDeleteUser(ctx, adaptorReq, dto.AdaptorFirebaseAuthDeleteUserReqHeader{})
 	if err != nil {
 		return nil, err
 	}
