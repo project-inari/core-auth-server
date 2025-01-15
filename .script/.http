@@ -7,3 +7,9 @@ Accept-Locale: EN
     "password": "password",
     "phoneNo": "+66900000001"
 }
+
+DELETE http://localhost:8080/v1/firebase-user
+Content-Type: application/json
+{
+    "uid": "test1"
+}

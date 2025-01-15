@@ -15,6 +15,7 @@ import (
 type mockAdaptorFirebaseAuthRepository struct {
 	signupRes      *httpclient.Response[dto.AdaptorFirebaseAuthSignUpRes]
 	verifyTokenRes *httpclient.Response[dto.AdaptorFirebaseAuthVerifyTokenRes]
+	deleteUserRes  *httpclient.Response[dto.AdaptorFirebaseAuthDeleteUserRes]
 	err            error
 }
 
@@ -24,6 +25,10 @@ func (m *mockAdaptorFirebaseAuthRepository) CallSignUp(_ context.Context, _ dto.
 
 func (m *mockAdaptorFirebaseAuthRepository) CallVerifyToken(_ context.Context, _ dto.AdaptorFirebaseAuthVerifyTokenReq, _ dto.AdaptorFirebaseAuthVerifyTokenReqHeader) (*httpclient.Response[dto.AdaptorFirebaseAuthVerifyTokenRes], error) {
 	return m.verifyTokenRes, m.err
+}
+
+func (m *mockAdaptorFirebaseAuthRepository) CallDeleteUser(_ context.Context, _ dto.AdaptorFirebaseAuthDeleteUserReq, _ dto.AdaptorFirebaseAuthDeleteUserReqHeader) (*httpclient.Response[dto.AdaptorFirebaseAuthDeleteUserRes], error) {
+	return m.deleteUserRes, m.err
 }
 
 const (

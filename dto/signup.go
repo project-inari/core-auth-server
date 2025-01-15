@@ -10,7 +10,7 @@ type SignUpReq struct {
 
 // SignUpReqHeader represents the header for the SignUpReq
 type SignUpReqHeader struct {
-	AcceptLocale string `json:"accept-locale"`
+	AcceptLocale string
 }
 
 // SignUpRes represents the response from the signup endpoint
