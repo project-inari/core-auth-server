@@ -13,6 +13,7 @@ type adaptorFirebaseAuthRepository struct {
 	baseURL         string
 	signupPath      string
 	verifyTokenPath string
+	deleteUserPath  string
 	client          *http.Client
 }
 
@@ -21,6 +22,7 @@ type AdaptorFirebaseAuthRepositoryConfig struct {
 	BaseURL         string
 	SignupPath      string
 	VerifyTokenPath string
+	DeleteUserPath  string
 }
 
 // AdaptorFirebaseAuthRepositoryDependencies represents the dependencies for the adaptorFirebaseAuthRepository
@@ -34,6 +36,7 @@ func NewAdaptorFirebaseAuthRepository(c AdaptorFirebaseAuthRepositoryConfig, d A
 		baseURL:         c.BaseURL,
 		signupPath:      c.SignupPath,
 		verifyTokenPath: c.VerifyTokenPath,
+		deleteUserPath:  c.DeleteUserPath,
 		client:          d.Client,
 	}
 }
@@ -48,4 +51,10 @@ func (r *adaptorFirebaseAuthRepository) CallSignUp(ctx context.Context, req dto.
 func (r *adaptorFirebaseAuthRepository) CallVerifyToken(ctx context.Context, req dto.AdaptorFirebaseAuthVerifyTokenReq, h dto.AdaptorFirebaseAuthVerifyTokenReqHeader) (*httpclient.Response[dto.AdaptorFirebaseAuthVerifyTokenRes], error) {
 	url := fmt.Sprintf("%s%s", r.baseURL, r.verifyTokenPath)
 	return httpclient.Post[dto.AdaptorFirebaseAuthVerifyTokenReq, dto.AdaptorFirebaseAuthVerifyTokenRes](ctx, r.client, url, h.ToMap(), req)
+}
+
+// CallDeleteUser calls the DeleteUser endpoint of the adaptor-firebase-auth service
+func (r *adaptorFirebaseAuthRepository) CallDeleteUser(ctx context.Context, req dto.AdaptorFirebaseAuthDeleteUserReq, h dto.AdaptorFirebaseAuthDeleteUserReqHeader) (*httpclient.Response[dto.AdaptorFirebaseAuthDeleteUserRes], error) {
+	url := fmt.Sprintf("%s%s", r.baseURL, r.deleteUserPath)
+	return httpclient.Delete[dto.AdaptorFirebaseAuthDeleteUserReq, dto.AdaptorFirebaseAuthDeleteUserRes](ctx, r.client, url, h.ToMap(), req)
 }

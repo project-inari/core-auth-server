@@ -15,6 +15,7 @@ import (
 type mockAdaptorFirebaseAuthRepository struct {
 	signupRes      *httpclient.Response[dto.AdaptorFirebaseAuthSignUpRes]
 	verifyTokenRes *httpclient.Response[dto.AdaptorFirebaseAuthVerifyTokenRes]
+	deleteUserRes  *httpclient.Response[dto.AdaptorFirebaseAuthDeleteUserRes]
 	err            error
 }
 
@@ -24,6 +25,10 @@ func (m *mockAdaptorFirebaseAuthRepository) CallSignUp(_ context.Context, _ dto.
 
 func (m *mockAdaptorFirebaseAuthRepository) CallVerifyToken(_ context.Context, _ dto.AdaptorFirebaseAuthVerifyTokenReq, _ dto.AdaptorFirebaseAuthVerifyTokenReqHeader) (*httpclient.Response[dto.AdaptorFirebaseAuthVerifyTokenRes], error) {
 	return m.verifyTokenRes, m.err
+}
+
+func (m *mockAdaptorFirebaseAuthRepository) CallDeleteUser(_ context.Context, _ dto.AdaptorFirebaseAuthDeleteUserReq, _ dto.AdaptorFirebaseAuthDeleteUserReqHeader) (*httpclient.Response[dto.AdaptorFirebaseAuthDeleteUserRes], error) {
+	return m.deleteUserRes, m.err
 }
 
 const (
@@ -203,6 +208,80 @@ func TestVerifyToken(t *testing.T) {
 		}
 
 		_, err := svc.VerifyToken(ctx, req)
+
+		assert.NotNil(t, err)
+	})
+}
+
+func TestDeleteFirebaseUser(t *testing.T) {
+	ctx := context.Background()
+
+	t.Run("success", func(t *testing.T) {
+		adaptorFirebaseAuthRes := &httpclient.Response[dto.AdaptorFirebaseAuthDeleteUserRes]{
+			HTTPStatusCode: 200,
+			Response: dto.AdaptorFirebaseAuthDeleteUserRes{
+				Success: true,
+			},
+		}
+
+		adaptorFirebaseAuthRepo := &mockAdaptorFirebaseAuthRepository{
+			deleteUserRes: adaptorFirebaseAuthRes,
+			err:           nil,
+		}
+
+		svc := &service{
+			adaptorFirebaseAuthRepository: adaptorFirebaseAuthRepo,
+		}
+
+		req := dto.DeleteFirebaseUserReq{
+			UID: mockUID,
+		}
+
+		res, err := svc.DeleteFirebaseUser(ctx, req)
+
+		assert.Nil(t, err)
+		assert.True(t, res.Success)
+	})
+
+	t.Run("error - when adaptor return status code not 200", func(t *testing.T) {
+		adaptorFirebaseAuthRes := &httpclient.Response[dto.AdaptorFirebaseAuthDeleteUserRes]{
+			HTTPStatusCode: 500,
+			Response:       dto.AdaptorFirebaseAuthDeleteUserRes{},
+		}
+
+		adaptorFirebaseAuthRepo := &mockAdaptorFirebaseAuthRepository{
+			deleteUserRes: adaptorFirebaseAuthRes,
+			err:           nil,
+		}
+
+		svc := &service{
+			adaptorFirebaseAuthRepository: adaptorFirebaseAuthRepo,
+		}
+
+		req := dto.DeleteFirebaseUserReq{
+			UID: mockUID,
+		}
+
+		_, err := svc.DeleteFirebaseUser(ctx, req)
+
+		assert.NotNil(t, err)
+	})
+
+	t.Run("error - when httpclient error", func(t *testing.T) {
+		adaptorFirebaseAuthRepo := &mockAdaptorFirebaseAuthRepository{
+			deleteUserRes: nil,
+			err:           errors.New("error"),
+		}
+
+		svc := &service{
+			adaptorFirebaseAuthRepository: adaptorFirebaseAuthRepo,
+		}
+
+		req := dto.DeleteFirebaseUserReq{
+			UID: mockUID,
+		}
+
+		_, err := svc.DeleteFirebaseUser(ctx, req)
 
 		assert.NotNil(t, err)
 	})

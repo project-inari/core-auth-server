@@ -1,0 +1,13 @@
+{
+    "request": {
+        "urlPathPattern": "/v1/user",
+        "method": "DELETE"
+    },
+    "response": {
+        "status": 200,
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "bodyFileName": "delete-firebase-user.json"
+    }
+}

@@ -13,6 +13,7 @@ import (
 type Port interface {
 	SignUp(ctx context.Context, req dto.SignUpReq, h dto.SignUpReqHeader) (*dto.SignUpRes, error)
 	VerifyToken(ctx context.Context, req *authPb.VerifyTokenReq) (*authPb.VerifyTokenRes, error)
+	DeleteFirebaseUser(ctx context.Context, req dto.DeleteFirebaseUserReq) (*dto.DeleteFirebaseUserRes, error)
 }
 
 type service struct {

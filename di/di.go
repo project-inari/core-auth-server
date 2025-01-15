@@ -55,6 +55,7 @@ func New(c *config.Config) {
 		BaseURL:         c.AdaptorFirebaseAuthAPIConfig.BaseURL,
 		SignupPath:      c.AdaptorFirebaseAuthAPIConfig.SignupPath,
 		VerifyTokenPath: c.AdaptorFirebaseAuthAPIConfig.VerifyTokenPath,
+		DeleteUserPath:  c.AdaptorFirebaseAuthAPIConfig.DeleteUserPath,
 	}, repository.AdaptorFirebaseAuthRepositoryDependencies{
 		Client: httpClientAdaptorFirebaseAuth,
 	})
