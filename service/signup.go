@@ -36,6 +36,8 @@ func (s *service) SignUp(ctx context.Context, req dto.SignUpReq, h dto.SignUpReq
 	}
 
 	return &dto.SignUpRes{
-		Token: res.Response.Token,
+		Username: res.Response.Username,
+		UID:      res.Response.UID,
+		Token:    res.Response.Token,
 	}, nil
 }

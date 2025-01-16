@@ -32,7 +32,9 @@ func (h AdaptorFirebaseAuthSignUpReqHeader) ToMap() map[string]string {
 
 // AdaptorFirebaseAuthSignUpRes represents the response from the adaptor-firebase-auth signup endpoint
 type AdaptorFirebaseAuthSignUpRes struct {
-	Token string `json:"token"`
+	Username string `json:"username"`
+	UID      string `json:"uid"`
+	Token    string `json:"token"`
 }
 
 // AdaptorFirebaseAuthVerifyTokenReq represents the request to the adaptor-firebase-auth verify token endpoint

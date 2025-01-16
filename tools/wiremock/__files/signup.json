@@ -1,3 +1,5 @@
 {
+    "username": "test",
+    "uid": "testuid",
     "token": "jwttoken"
 }

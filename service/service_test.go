@@ -50,7 +50,9 @@ func TestSignUp(t *testing.T) {
 		adaptorFirebaseAuthRes := &httpclient.Response[dto.AdaptorFirebaseAuthSignUpRes]{
 			HTTPStatusCode: 200,
 			Response: dto.AdaptorFirebaseAuthSignUpRes{
-				Token: mockToken,
+				Username: mockUsername,
+				UID:      mockUID,
+				Token:    mockToken,
 			},
 		}
 
@@ -76,6 +78,8 @@ func TestSignUp(t *testing.T) {
 		res, err := svc.SignUp(ctx, req, header)
 
 		assert.Nil(t, err)
+		assert.Equal(t, mockUsername, res.Username)
+		assert.Equal(t, mockUID, res.UID)
 		assert.Equal(t, mockToken, res.Token)
 	})
 
@@ -104,9 +108,10 @@ func TestSignUp(t *testing.T) {
 			AcceptLocale: enAcceptLocale,
 		}
 
-		_, err := svc.SignUp(ctx, req, header)
+		res, err := svc.SignUp(ctx, req, header)
 
 		assert.NotNil(t, err)
+		assert.Nil(t, res)
 	})
 
 	t.Run("error - when httpclient error", func(t *testing.T) {
@@ -129,9 +134,10 @@ func TestSignUp(t *testing.T) {
 			AcceptLocale: enAcceptLocale,
 		}
 
-		_, err := svc.SignUp(ctx, req, header)
+		res, err := svc.SignUp(ctx, req, header)
 
 		assert.NotNil(t, err)
+		assert.Nil(t, res)
 	})
 }
 

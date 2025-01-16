@@ -15,5 +15,7 @@ type SignUpReqHeader struct {
 
 // SignUpRes represents the response from the signup endpoint
 type SignUpRes struct {
-	Token string `json:"token"`
+	Username string `json:"username"`
+	UID      string `json:"uid"`
+	Token    string `json:"token"`
 }
