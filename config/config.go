@@ -40,7 +40,7 @@ type Config struct {
 	AppConfig                    AppConfig
 	LogConfig                    LogConfig
 	SentryConfig                 SentryConfig
-	AdaptorFirebaseAuthAPIConfig AdaptorFirebaseAuthAPIConfig
+	APIAdaptorFirebaseAuthConfig APIAdaptorFirebaseAuthConfig
 }
 
 // AppConfig represents the configuration of the application
@@ -62,16 +62,16 @@ type SentryConfig struct {
 	SentryDSN string `env:"SENTRY_DSN"`
 }
 
-// AdaptorFirebaseAuthAPIConfig represents the configuration of the adaptor-firebase-auth API
-type AdaptorFirebaseAuthAPIConfig struct {
-	BaseURL                  string        `env:"ADAPTOR_FIREBASE_AUTH_API_BASE_URL,notEmpty"`
-	SignupPath               string        `env:"ADAPTOR_FIREBASE_AUTH_API_SIGNUP_PATH,notEmpty"`
-	VerifyTokenPath          string        `env:"ADAPTOR_FIREBASE_AUTH_API_VERIFY_TOKEN_PATH,notEmpty"`
-	DeleteUserPath           string        `env:"ADAPTOR_FIREBASE_AUTH_API_DELETE_USER_PATH,notEmpty"`
-	MaxConns                 int           `env:"ADAPTOR_FIREBASE_AUTH_API_MAX_CONNS,notEmpty"`
-	MaxRetry                 int           `env:"ADAPTOR_FIREBASE_AUTH_API_MAX_RETRY"`
-	Timeout                  time.Duration `env:"ADAPTOR_FIREBASE_AUTH_API_TIMEOUT,notEmpty"`
-	InsecureSkipVerify       bool          `env:"ADAPTOR_FIREBASE_AUTH_API_INSECURE_SKIP_VERIFY,notEmpty"`
-	MaxTransactionsPerSecond int           `env:"ADAPTOR_FIREBASE_AUTH_API_MAX_TRANSACTIONS_PER_SECOND"`
-	DisableLogTrace          bool          `env:"ADAPTOR_FIREBASE_AUTH_API_DISABLE_LOG_TRACE"`
+// APIAdaptorFirebaseAuthConfig represents the configuration of the adaptor-firebase-auth API
+type APIAdaptorFirebaseAuthConfig struct {
+	BaseURL                  string        `env:"API_ADAPTOR_FIREBASE_AUTH_BASE_URL,notEmpty"`
+	SignupPath               string        `env:"API_ADAPTOR_FIREBASE_AUTH_SIGNUP_PATH,notEmpty"`
+	VerifyTokenPath          string        `env:"API_ADAPTOR_FIREBASE_AUTH_VERIFY_TOKEN_PATH,notEmpty"`
+	DeleteUserPath           string        `env:"API_ADAPTOR_FIREBASE_AUTH_DELETE_USER_PATH,notEmpty"`
+	MaxConns                 int           `env:"API_ADAPTOR_FIREBASE_AUTH_MAX_CONNS,notEmpty"`
+	MaxRetry                 int           `env:"API_ADAPTOR_FIREBASE_AUTH_MAX_RETRY"`
+	Timeout                  time.Duration `env:"API_ADAPTOR_FIREBASE_AUTH_TIMEOUT,notEmpty"`
+	InsecureSkipVerify       bool          `env:"API_ADAPTOR_FIREBASE_AUTH_INSECURE_SKIP_VERIFY,notEmpty"`
+	MaxTransactionsPerSecond int           `env:"API_ADAPTOR_FIREBASE_AUTH_MAX_TRANSACTIONS_PER_SECOND"`
+	DisableLogTrace          bool          `env:"API_ADAPTOR_FIREBASE_AUTH_DISABLE_LOG_TRACE"`
 }

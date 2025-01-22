@@ -42,20 +42,20 @@ func New(c *config.Config) {
 
 	// HTTP Client initialization
 	httpClientAdaptorFirebaseAuth := httpclient.NewHTTPClient(httpclient.Options{
-		MaxConns:                 c.AdaptorFirebaseAuthAPIConfig.MaxConns,
-		MaxRetry:                 c.AdaptorFirebaseAuthAPIConfig.MaxRetry,
-		Timeout:                  c.AdaptorFirebaseAuthAPIConfig.Timeout,
-		InsecureSkipVerify:       c.AdaptorFirebaseAuthAPIConfig.InsecureSkipVerify,
-		MaxTransactionsPerSecond: c.AdaptorFirebaseAuthAPIConfig.MaxTransactionsPerSecond,
-		DisableLogTrace:          c.AdaptorFirebaseAuthAPIConfig.DisableLogTrace,
+		MaxConns:                 c.APIAdaptorFirebaseAuthConfig.MaxConns,
+		MaxRetry:                 c.APIAdaptorFirebaseAuthConfig.MaxRetry,
+		Timeout:                  c.APIAdaptorFirebaseAuthConfig.Timeout,
+		InsecureSkipVerify:       c.APIAdaptorFirebaseAuthConfig.InsecureSkipVerify,
+		MaxTransactionsPerSecond: c.APIAdaptorFirebaseAuthConfig.MaxTransactionsPerSecond,
+		DisableLogTrace:          c.APIAdaptorFirebaseAuthConfig.DisableLogTrace,
 	})
 
 	// Repository initialization
 	adaptorFirebaseAuthRepo := repository.NewAdaptorFirebaseAuthRepository(repository.AdaptorFirebaseAuthRepositoryConfig{
-		BaseURL:         c.AdaptorFirebaseAuthAPIConfig.BaseURL,
-		SignupPath:      c.AdaptorFirebaseAuthAPIConfig.SignupPath,
-		VerifyTokenPath: c.AdaptorFirebaseAuthAPIConfig.VerifyTokenPath,
-		DeleteUserPath:  c.AdaptorFirebaseAuthAPIConfig.DeleteUserPath,
+		BaseURL:         c.APIAdaptorFirebaseAuthConfig.BaseURL,
+		SignupPath:      c.APIAdaptorFirebaseAuthConfig.SignupPath,
+		VerifyTokenPath: c.APIAdaptorFirebaseAuthConfig.VerifyTokenPath,
+		DeleteUserPath:  c.APIAdaptorFirebaseAuthConfig.DeleteUserPath,
 	}, repository.AdaptorFirebaseAuthRepositoryDependencies{
 		Client: httpClientAdaptorFirebaseAuth,
 	})
