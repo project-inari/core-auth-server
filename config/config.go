@@ -69,7 +69,7 @@ type AdaptorFirebaseAuthAPIConfig struct {
 	VerifyTokenPath          string        `env:"ADAPTOR_FIREBASE_AUTH_API_VERIFY_TOKEN_PATH,notEmpty"`
 	DeleteUserPath           string        `env:"ADAPTOR_FIREBASE_AUTH_API_DELETE_USER_PATH,notEmpty"`
 	MaxConns                 int           `env:"ADAPTOR_FIREBASE_AUTH_API_MAX_CONNS,notEmpty"`
-	MaxRetry                 int           `env:"ADAPTOR_FIREBASE_AUTH_API_MAX_RETRY,notEmpty"`
+	MaxRetry                 int           `env:"ADAPTOR_FIREBASE_AUTH_API_MAX_RETRY"`
 	Timeout                  time.Duration `env:"ADAPTOR_FIREBASE_AUTH_API_TIMEOUT,notEmpty"`
 	InsecureSkipVerify       bool          `env:"ADAPTOR_FIREBASE_AUTH_API_INSECURE_SKIP_VERIFY,notEmpty"`
 	MaxTransactionsPerSecond int           `env:"ADAPTOR_FIREBASE_AUTH_API_MAX_TRANSACTIONS_PER_SECOND"`
